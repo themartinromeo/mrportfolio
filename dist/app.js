@@ -4,6 +4,7 @@ const T={en:{all:'All',D:'Director',E:'Editor',P:'Cinematographer',close:'Close'
 fr:{all:'Tout',D:'Réalisateur',E:'Monteur',P:'Directeur photo',close:'Fermer',vim:'Voir sur Vimeo',prev:'Images précédentes',next:'Images suivantes',watch:'Voir la vidéo complète',snd:['Activer le son','Couper le son'],still:'Image de',on:'Sur Vimeo',grp:'Filtrer par rôle',back:['Retour à la vidéo','Retour au diaporama'],play:['Pause','Lecture']}}[LG];
 // r: D director, E editor, P cinematographer. s/c/n: stills folder, cover, count
 const P=[
+  {id:'astrid',t:'Les Faillites d’Astrid',src:'https://vumbnail.com/876911905.jpg',n:0,r:'E',alt:'Les Faillites d’Astrid, Radio-Canada',en:'2025 · Radio-Canada · Editor, 6 episodes',fr:'2025 · Radio-Canada · Monteur, 6 épisodes'},
 {id:'malgre',t:'Malgré Moi',src:'media/malgre-moi.jpg',n:0,r:'E',alt:'Malgré Moi, Radio-Canada',en:'2025–2026 · Radio-Canada · Editor, seasons 1–2',fr:'2025–2026 · Radio-Canada · Monteur, saisons 1–2'},
 {id:'wp',t:'William Prince - Further From The Country',s:'william-prince',c:1,n:15,r:'DE',alt:'William Prince, Further From The Country',en:'2026 · Six Shooter Records · Director · Editor',fr:'2026 · Six Shooter Records · Réalisateur · Monteur'},
 {id:'champions',t:'Champions',s:'champions',c:3,n:35,r:'PE',alt:'Basketball player in a backlit gym',en:'2025–2026 · TFO · Cinematographer · Editor',fr:'2025–2026 · TFO · Directeur photo · Monteur'},
@@ -32,13 +33,12 @@ const V=[
 ['viisi - Social Media','930325239','','',''],
 ['Mobina Galore - Sorry I’m a Mess','406924730','D','2019 · Bell TV · Director','2019 · Bell TV · Réalisateur']];
 const M=[
-['Les faillites d’Astrid','','Radio-Canada · 2025','Radio-Canada · 2025'],
 ['Champions','PE','TFO · 2025–2026 · Editor, season 1 · Cinematographer, season 2','TFO · 2025–2026 · Monteur, saison 1 · Directeur photo, saison 2'],
 ['C’est moi qui décide!','DPE','Unis TV · 2023–2024 · Cinematographer and editor, season 1 · Director, season 2','Unis TV · 2023–2024 · Directeur photo et monteur, saison 1 · Réalisateur, saison 2'],
 ['Faouzia × John Legend - The Today Show','D','Atlantic Records · 2020 · Second unit director · Producer','Atlantic Records · 2020 · Réalisateur, deuxième équipe · Production']];
 
-// role toggles (header): pink = on, white = off and that work is muted. Any combination; remembered between pages
-let roles=['D','E','P'];try{const q=localStorage.getItem('mr-roles');if(q!==null)roles=q.split('').filter(k=>'DEP'.includes(k))}catch(e){}
+// role toggles (header): pink = on, white = off and that work is muted. Any combination; resets on every page load
+let roles=['D','E','P'];   // always starts with every role on
 function applyRole(){
   $$('[data-r]').forEach(el=>{const r=el.dataset.r,d=r!==''&&![...r].some(k=>roles.includes(k));el.classList.toggle('dim',d);if(el.matches('.row'))el.setAttribute('aria-hidden',d)});
   $$('.roles button').forEach(b=>b.setAttribute('aria-pressed',roles.includes(b.dataset.k)));
@@ -47,7 +47,7 @@ function mountRoles(){
   const h=$('.roles');if(!h)return;
   h.setAttribute('aria-label',T.grp);
   h.innerHTML=['D','E','P'].map(k=>`<button type="button" data-k="${k}" aria-pressed="true">${T[k]}</button>`).join('');
-  h.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;roles=roles.includes(k)?roles.filter(x=>x!==k):[...roles,k];try{localStorage.setItem('mr-roles',roles.join(''))}catch(x){}applyRole()};
+  h.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;roles=roles.includes(k)?roles.filter(x=>x!==k):[...roles,k];applyRole()};
 }
 const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 // Champions: lean on the basketball / swimming / windsurf frames, with the odd tropical one mixed in
@@ -59,15 +59,17 @@ const th=(s,n)=>`stills/${s}/t/${pad(n)}.jpg`;
 const cov={};const cover=p=>p.src||th(p.s,cov[p.id]||(cov[p.id]=(FAV[p.s]?shuf(FAV[p.s]):ord(p.s,p.n))[0]));
 const ttl=t=>{const i=t.indexOf(' - ');return i<0?t:`<span class="ar">${t.slice(0,i)}</span><span class="pr">${t.slice(i+3)}</span>`};
 const card=p=>`<button class="card" data-id="${p.id}" data-r="${p.r}"><div class="ph"><img src="${cover(p)}" alt="${p.alt}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(p.t)}</h3>${p[LG]?`<small>${p[LG]}</small>`:''}</div></button>`;
+const FEAT=['malgre','wp','champions','foodies','astrid'];   // featured work, shown in random order on each load
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
-if($('#feat'))$('#feat').innerHTML=['malgre','wp','champions','foodies'].map(i=>card(byId[i])).join('');
+if($('#feat'))$('#feat').innerHTML=shuf(FEAT).map(i=>card(byId[i])).join('');
 const row=p=>`<article class="row" data-r="${p.r}" data-id="${p.id}"><header><div><h3>${ttl(p.t)}</h3>${p[LG]?`<p>${p[LG]}</p>`:''}</div><div class="rctl"><button class="rb" data-d="-1" aria-label="${T.prev}">‹</button><button class="rb" data-d="1" aria-label="${T.next}">›</button></div></header><div class="track" tabindex="0" role="region" aria-label="${p.t}"><div class="strip2">${ord(p.s,p.n).map(k=>[AR[p.s][k-1],k-1]).map(([r,i])=>`<button class="fr" data-id="${p.id}" data-k="${i+1}" style="--ar:${r}"><img draggable="false" src="${th(p.s,i+1)}" alt="${T.still} ${p.t}, ${i+1}/${p.n}" loading="lazy" decoding="async"></button>`).join('')}</div></div><i class="bar"></i></article>`;
-if($('#sel'))$('#sel').innerHTML=P.filter(p=>!['malgre','wp','champions','foodies'].includes(p.id)).map(row).join('');
+if($('#sel'))$('#sel').innerHTML=P.filter(p=>!FEAT.includes(p.id)).map(row).join('');
 
 const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
+const SOC={'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
 const onFront=['631166001'];   // Indi Star - Exposed already lives in the Indi Star row on the home page
-if($('#all'))$('#all').innerHTML=V.filter(v=>!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="https://vumbnail.com/${v[1]}.jpg" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
+if($('#all'))$('#all').innerHTML=V.filter(v=>!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="${SOC[v[1]]?th(SOC[v[1]].s,1):`https://vumbnail.com/${v[1]}.jpg`}" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
 const jx=$('#all.jx');
 if(jx){const fit=()=>{const W=jx.clientWidth,H=innerWidth<700?190:300,g=4,cs=[...jx.children];let row=[],sum=0;
     const flush=(last)=>{if(!row.length)return;const avail=W-g*(row.length-1);let h=avail/sum;if(last&&h>H*1.25)h=H;row.forEach(c=>{const ar=+c.dataset.ar;c.style.width=(h*ar)+'px';c.style.height=h+'px'});row=[];sum=0};
@@ -78,7 +80,7 @@ if($('#more'))$('#more').innerHTML=M.map(m=>`<li data-r="${m[1]}"><b>${m[0]}</b>
 mountRoles();applyRole();
 
 // ghost window: looping video, 3–6 stills and production details
-const VID={malgre:{vimeo:'1150245299'},crystalline:{vimeo:'470453971'},foodies:{vimeo:'1199231416',h:'461a5e30e3'},hafu:{vimeo:'1150249442'},cmqd:{vimeo:'1043743626'},indi:{vimeo:'631166001'},wp:{vimeo:'1122501694'}}; // add {vimeo:'ID'} or {src:'media/clips/x.mp4'} for the others
+const VID={astrid:{vimeo:'876911905'},malgre:{vimeo:'1150245299'},crystalline:{vimeo:'470453971'},foodies:{vimeo:'1199231416',h:'461a5e30e3'},hafu:{vimeo:'1150249442'},cmqd:{vimeo:'1043743626'},indi:{vimeo:'631166001'},wp:{vimeo:'1122501694'}}; // add {vimeo:'ID'} or {src:'media/clips/x.mp4'} for the others
 const INFO={
 hafu:[['Year','Année','2025','2025'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Documentary','Documentaire'],['Role','Rôle','Cinematographer','Directeur photo']],
 champions:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','TFO','TFO'],['Format','Format','Series','Série'],['Cinematographer','Directeur photo','Season 2 · 13 episodes','Saison 2 · 13 épisodes'],['Editor','Monteur','Season 1 · 1 episode','Saison 1 · 1 épisode']],
@@ -139,7 +141,8 @@ function openProject(p){
 function openVimeo(id,t,m){
   const parts=m.split(' · '),yr=/^\d{4}/.test(parts[0]);
   const info=m?(yr?`<div><dt>${LG==='fr'?'Année':'Year'}</dt><dd>${parts[0]}</dd></div>`:'')+`<div><dt>${LG==='fr'?'Crédits':'Credits'}</dt><dd>${(yr?parts.slice(1):parts).join(' · ')}</dd></div>`:'';
-  ghost(t,m,vimeoBg(id),'',info,vimeoUrl(id));
+  const so=SOC[id],stl=so?Array.from({length:so.n},(_,i)=>`<img data-k="${i+1}" data-s="${so.s}" tabindex="0" src="${th(so.s,i+1)}" alt="${T.still} ${t}, ${i+1}/${so.n}" loading="lazy">`).join(''):'';
+  ghost(t,m,vimeoBg(id),stl,info,vimeoUrl(id));
   const ar=VA[id],vd=$('#vd');vd.style.aspectRatio=ar||'';vd.style.width=ar&&ar<1?`min(calc(100% - 48px),${(66*ar).toFixed(2)}vh)`:'';vd.style.marginInline=ar&&ar<1?'auto':'';
 }
 if(gw){
@@ -195,7 +198,7 @@ if(rows.length){
       live.forEach(r=>{
         const b=r.getBoundingClientRect(),h=innerHeight,mx=maxOf(r);
         const p=Math.min(1,Math.max(0,((h-b.top)/(h+b.height)-.12)/.7));
-        const auto=-p*mx*.55;
+        const auto=-p*mx*.275;
         let raw=auto+r._m;if(raw<-mx){r._m=-mx-auto;raw=-mx}if(raw>0){r._m=-auto;raw=0}
         r._x=r._x===null?raw:r._x+(raw-r._x)*.07;
         r.querySelector('.strip2').style.transform=`translate3d(${r._x.toFixed(1)}px,0,0)`;
@@ -277,5 +280,5 @@ if(cf){
 
 // role filter lives at the bottom of the screen: it steps aside while scrolling and returns when things settle
 const fb=$('.fbar');
-if(fb){let t;const lim=()=>document.body.classList.contains('home')?innerHeight*.85:260,sh=()=>fb.classList.toggle('show',scrollY>lim());sh();const away=()=>{sh();fb.classList.add('away');clearTimeout(t);t=setTimeout(()=>{sh();fb.classList.remove('away')},650)};
+if(fb){let t;const lim=()=>document.body.classList.contains('home')?innerHeight*.85:260,sh=()=>fb.classList.toggle('show',scrollY>lim());sh();const away=()=>{sh();fb.classList.add('away');clearTimeout(t);t=setTimeout(()=>{sh();fb.classList.remove('away')},140)};
   addEventListener('scroll',away,{passive:true});addEventListener('wheel',away,{passive:true});addEventListener('touchmove',away,{passive:true})}

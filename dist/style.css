@@ -242,3 +242,5 @@ h3 .pr{display:block}
 .jx h3{font-size:clamp(17px,2vw,30px)}
 .jx .cap small{font-size:10px}
 .bio img{max-height:92vh;object-position:50% 25%}
+
+.fbar.show:not(.away){transition:opacity .22s,transform .22s,visibility .22s}
