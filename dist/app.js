@@ -22,13 +22,13 @@ const V=[
 ['viisi - Runner','467150416','DPE','2020 · Director · Cinematographer · Editor','2020 · Réalisateur · Directeur photo · Monteur'],
 ['Cancelled','1150244901','E','2024 · Unis TV · Editor · Colorist','2024 · Unis TV · Monteur · Étalonneur'],
 ['La Terre en Nous','823066763','EP','2021 · APTN / Radio-Canada · Editor · Camera','2021 · APTN / Radio-Canada · Monteur · Caméra'],
-['Clipwing - Last Call','1184642141','DE','2026 · Director · Editor · DOP: Jesse de Rocquigny','2026 · Réalisateur · Monteur · Directeur photo : Jesse de Rocquigny'],
-['Jordan Heppner - Fenway','843718272','DPE','2023 · Director · Editor · DOP / Camera: Brad Crawford, Martin Roméo','2023 · Réalisateur · Monteur · Directeur photo / Caméra : Brad Crawford, Martin Roméo'],
+['Clipwing - Last Call','1184642141','DE','2026 · Director · Editor','2026 · Réalisateur · Monteur'],
+['Jordan Heppner - Fenway','843718272','DPE','2023 · Director · Editor','2023 · Réalisateur · Monteur'],
 ['Arden Jones - Smile','613666745','PE','2021 · Atlantic Records · Cinematographer · Editor','2021 · Atlantic Records · Directeur photo · Monteur'],
 ['Indi Star - Exposed','631166001','PE','2022 · Cinematographer · Editor','2022 · Directeur photo · Monteur'],
 ['Boy Golden - KD and Lunch Meat','606684440','PE','2021 · Six Shooter Records · Cinematographer · Editor','2021 · Six Shooter Records · Directeur photo · Monteur'],
-['Mobina Galore - Whiskey Water','701899917','D','2022 · Director · DOP: Tyler Funk','2022 · Réalisateur · Directeur photo : Tyler Funk'],
-['William Prince - NPR Tiny Desk','638796408','DPE','2022 · Director · Editor · Cinematography: Martin Roméo, Philippe Bellefeuille, Brad Crawford','2022 · Réalisateur · Monteur · Image : Martin Roméo, Philippe Bellefeuille, Brad Crawford'],
+['Mobina Galore - Whiskey Water','701899917','D','2022 · Director','2022 · Réalisateur'],
+['William Prince - NPR Tiny Desk','638796408','DPE','2022 · Director · Editor','2022 · Réalisateur · Monteur'],
 ['Sadye - Social Media','941435606','','',''],
 ['viisi - Social Media','930325239','','',''],];
 const M=[
@@ -87,7 +87,7 @@ if($('#all')&&lv){const m=lv[LG==='fr'?4:3];
   $('#all').style.marginTop='4px';
   fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(vimeoUrl(lv[1]))}&width=1920`).then(r=>r.json()).then(j=>{if(j.thumbnail_url){const i=$('.lead img');i.style.display='';i.src=j.thumbnail_url}}).catch(()=>{})}
 const jx=$('#all.jx');
-if(jx){const fit=()=>{const W=jx.clientWidth,H=innerWidth<700?190:300,g=4,cs=[...jx.children];let row=[],sum=0;
+if(jx){const fit=()=>{if(innerWidth<=700){[...jx.children].forEach(c=>{c.style.width='';c.style.height=''});return}const W=jx.clientWidth,H=innerWidth<700?190:300,g=4,cs=[...jx.children];let row=[],sum=0;
     const flush=(last)=>{if(!row.length)return;const avail=W-g*(row.length-1);let h=avail/sum;if(last&&h>H*1.25)h=H;row.forEach(c=>{const ar=+c.dataset.ar;c.style.width=(h*ar)+'px';c.style.height=h+'px'});row=[];sum=0};
     cs.forEach((c,i)=>{const ar=+c.dataset.ar;row.push(c);sum+=ar;if((sum*H+g*(row.length-1))>=W)flush(false)});flush(true)};
   fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)}
@@ -156,11 +156,18 @@ function openProject(p){
   const info=(INFO[p.id]||[]).map(r=>`<div><dt>${LG==='fr'?r[1]:r[0]}</dt><dd>${LG==='fr'?r[3]:r[2]}</dd></div>`).join('');
   ghost(p.t,p[LG],video,stl,info,v&&v.vimeo?vimeoUrl(v.vimeo)+(v.h?'/'+v.h:''):'');
 }
+// crew other than Martin: kept off the thumbnails, shown in the popup like the year and network rows
+const CREW={
+  '1184642141':[['DOP','Directeur photo','Jesse de Rocquigny']],
+  '843718272':[['DOP / Camera','Directeur photo / Caméra','Brad Crawford · Martin Roméo']],
+  '701899917':[['DOP','Directeur photo','Tyler Funk']],
+  '638796408':[['Cinematography','Image','Martin Roméo · Philippe Bellefeuille · Brad Crawford']]};
 function openVimeo(id,t,m){
   const parts=m.split(' · '),yr=/^\d{4}/.test(parts[0]);
   const info=m?(yr?`<div><dt>${LG==='fr'?'Année':'Year'}</dt><dd>${parts[0]}</dd></div>`:'')+`<div><dt>${LG==='fr'?'Crédits':'Credits'}</dt><dd>${(yr?parts.slice(1):parts).join(' · ')}</dd></div>`:'';
+  const crew=(CREW[id]||[]).map(r=>`<div><dt>${LG==='fr'?r[1]:r[0]}</dt><dd>${r[2]}</dd></div>`).join('');
   const so=SOC[id],stl=so?Array.from({length:so.n},(_,i)=>`<img data-k="${i+1}" data-s="${so.s}" tabindex="0" src="${th(so.s,i+1)}" alt="${T.still} ${t}, ${i+1}/${so.n}" loading="lazy">`).join(''):'';
-  ghost(t,m,vimeoBg(id),stl,info,vimeoUrl(id));
+  ghost(t,m,vimeoBg(id),stl,info+crew,vimeoUrl(id));
   const ar=VA[id],vd=$('#vd');vd.style.aspectRatio=ar||'';vd.style.width=ar&&ar<1?`min(calc(100% - 48px),${(66*ar).toFixed(2)}vh)`:'';vd.style.marginInline=ar&&ar<1?'auto':'';
 }
 if(gw){
