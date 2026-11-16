@@ -4,7 +4,7 @@ const T={en:{all:'All',D:'Director',E:'Editor',P:'Cinematographer',close:'Close'
 fr:{all:'Tout',D:'Réalisateur',E:'Monteur',P:'Directeur photo',close:'Fermer',vim:'Voir sur Vimeo',prev:'Images précédentes',next:'Images suivantes',watch:'Voir la vidéo complète',snd:['Activer le son','Couper le son'],still:'Image de',on:'Sur Vimeo',grp:'Filtrer par rôle',back:['Retour à la vidéo','Retour au diaporama'],play:['Pause','Lecture']}}[LG];
 // r: D director, E editor, P cinematographer. s/c/n: stills folder, cover, count
 const P=[
-  {id:'astrid',t:'Les Faillites d’Astrid',src:'stills/astrid/t/05.jpg',s:'astrid',c:1,n:5,r:'E',alt:'Les Faillites d’Astrid, Radio-Canada',en:'2025 · Radio-Canada · Editor, 6 episodes',fr:'2025 · Radio-Canada · Monteur, 6 épisodes'},
+  {id:'astrid',t:'Les Faillites d’Astrid',src:'stills/astrid/t/05.jpg',s:'astrid',c:1,n:5,r:'E',alt:'Les Faillites d’Astrid, Radio-Canada',en:'2025 · CBC · Editor, 6 episodes',fr:'2025 · Radio-Canada · Monteur, 6 épisodes'},
 {id:'malgre',t:'Malgré Moi',src:'media/malgre-moi.jpg',n:0,r:'E',alt:'Malgré Moi, Radio-Canada',en:'2025–2026 · Radio-Canada · Editor, seasons 1–2',fr:'2025–2026 · Radio-Canada · Monteur, saisons 1–2'},
 {id:'wp',t:'William Prince - Further From The Country',s:'william-prince',c:1,n:15,r:'DE',alt:'William Prince, Further From The Country',en:'2026 · Six Shooter Records · Director · Editor',fr:'2026 · Six Shooter Records · Réalisateur · Monteur'},
 {id:'champions',t:'Champions',s:'champions',c:3,n:35,r:'PE',alt:'Basketball player in a backlit gym',en:'2025–2026 · TFO · Cinematographer · Editor',fr:'2025–2026 · TFO · Directeur photo · Monteur'},
@@ -82,6 +82,8 @@ mountRoles();applyRole();
 // ghost window: looping video, 3–6 stills and production details
 const VID={astrid:{vimeo:'876911905'},malgre:{vimeo:'1150245299'},crystalline:{vimeo:'470453971'},foodies:{vimeo:'1199231416',h:'461a5e30e3'},hafu:{vimeo:'1150249442'},cmqd:{vimeo:'1043743626'},indi:{vimeo:'631166001'},wp:{vimeo:'1122501694'}}; // add {vimeo:'ID'} or {src:'media/clips/x.mp4'} for the others
 const INFO={
+  astrid:[['Year','Année','2025','2025'],['Network','Diffuseur','CBC','CBC'],['Format','Format','Series','Série'],['Written and directed by','Écrit et réalisé par','Elena Sturk-Lussier','Elena Sturk-Lussier'],['Director of photography','Directrice photo','Laina Brown','Laina Brown'],['Camera','Caméra','Jesse de Rocquigny','Jesse de Rocquigny'],['Produced by','Production','Ray Films','Ray Films'],['Editor','Monteur','6 episodes','6 épisodes']],
+  
 hafu:[['Year','Année','2025','2025'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Documentary','Documentaire'],['Role','Rôle','Cinematographer','Directeur photo']],
 champions:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','TFO','TFO'],['Format','Format','Series','Série'],['Cinematographer','Directeur photo','Season 2 · 13 episodes','Saison 2 · 13 épisodes'],['Editor','Monteur','Season 1 · 1 episode','Saison 1 · 1 épisode']],
 survival:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','Radio-Canada','Radio-Canada'],['Format','Format','Series','Série'],['Cinematographer','Directeur photo','6 episodes','6 épisodes'],['Editor','Monteur','1 episode','1 épisode']],
