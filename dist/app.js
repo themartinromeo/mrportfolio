@@ -4,7 +4,7 @@ const T={en:{all:'All',D:'Director',E:'Editor',P:'Cinematographer',close:'Close'
 fr:{all:'Tout',D:'Réalisateur',E:'Monteur',P:'Directeur photo',close:'Fermer',vim:'Voir sur Vimeo',prev:'Images précédentes',next:'Images suivantes',watch:'Voir la vidéo complète',snd:['Activer le son','Couper le son'],still:'Image de',on:'Sur Vimeo',grp:'Filtrer par rôle',back:['Retour à la vidéo','Retour au diaporama'],play:['Pause','Lecture']}}[LG];
 // r: D director, E editor, P cinematographer. s/c/n: stills folder, cover, count
 const P=[
-  {id:'astrid',t:'Les Faillites d’Astrid',s:'astrid',c:1,n:5,r:'E',alt:'Les Faillites d’Astrid, Radio-Canada',en:'2025 · Radio-Canada · Editor, 6 episodes',fr:'2025 · Radio-Canada · Monteur, 6 épisodes'},
+  {id:'astrid',t:'Les Faillites d’Astrid',src:'stills/astrid/t/05.jpg',s:'astrid',c:1,n:5,r:'E',alt:'Les Faillites d’Astrid, Radio-Canada',en:'2025 · Radio-Canada · Editor, 6 episodes',fr:'2025 · Radio-Canada · Monteur, 6 épisodes'},
 {id:'malgre',t:'Malgré Moi',src:'media/malgre-moi.jpg',n:0,r:'E',alt:'Malgré Moi, Radio-Canada',en:'2025–2026 · Radio-Canada · Editor, seasons 1–2',fr:'2025–2026 · Radio-Canada · Monteur, saisons 1–2'},
 {id:'wp',t:'William Prince - Further From The Country',s:'william-prince',c:1,n:15,r:'DE',alt:'William Prince, Further From The Country',en:'2026 · Six Shooter Records · Director · Editor',fr:'2026 · Six Shooter Records · Réalisateur · Monteur'},
 {id:'champions',t:'Champions',s:'champions',c:3,n:35,r:'PE',alt:'Basketball player in a backlit gym',en:'2025–2026 · TFO · Cinematographer · Editor',fr:'2025–2026 · TFO · Directeur photo · Monteur'},
@@ -51,7 +51,7 @@ function mountRoles(){
 }
 const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 // Champions: lean on the basketball / swimming / windsurf frames, with the odd tropical one mixed in
-const FAV={astrid:[1,2,3,4],champions:[1,2,3,4,5,6,7,8,9,12,14,15,16,17,24,28]};
+const FAV={champions:[1,2,3,4,5,6,7,8,9,12,14,15,16,17,24,28]};
 const ord=(s,n)=>{const f=FAV[s];if(!f)return shuf(Array.from({length:n},(_,i)=>i+1));
   const rest=shuf(Array.from({length:n},(_,i)=>i+1).filter(i=>!f.includes(i))).slice(0,Math.ceil(f.length*.2));
   return shuf([...f,...rest])};
