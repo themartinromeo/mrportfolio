@@ -256,7 +256,7 @@ h3 .pr{display:block}
 .card.lead .cap small{display:block;margin-top:12px;font:11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#f5ecdcc7}
 .card.lead .pl{position:absolute;z-index:2;right:clamp(18px,3vw,44px);bottom:clamp(18px,2.6vw,36px);width:58px;height:58px;border:1px solid #f5ecdc80;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:16px;padding-left:3px;background:#10100f66;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .3s,border-color .3s,color .3s}
 .card.lead:hover .pl{background:var(--red);border-color:var(--red);color:#10100f}
-@media(max-width:700px){.lead{aspect-ratio:4/3}.lead .pl{width:44px;height:44px}}
+@media(max-width:700px){.card.lead{aspect-ratio:4/3}.card.lead .pl{width:44px;height:44px}}
 /* Bio: portrait sized to the text column */
 .bio{grid-template-columns:minmax(0,34em) minmax(240px,380px);justify-content:start;gap:clamp(30px,6vw,90px);align-items:stretch}
 .bio figure{position:relative;min-height:320px}
