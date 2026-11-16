@@ -290,3 +290,24 @@ h3 .pr{display:block}
   .bio .action{order:4;align-self:flex-start;margin-top:8px}
   .contact .note{min-height:1.5em}
 }
+
+/* ===== Round 3 ===== */
+/* slimmer header: nav sits closer to the name (desktop and phone) */
+body>header{padding-top:10px;padding-bottom:10px}
+body.home>header .brand{line-height:1}
+/* La Terre en Nous: same bare play control as the landing-page reel */
+.card.lead .pl{width:auto;height:auto;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:6px 8px;color:var(--red);font:15px/1 var(--mono);letter-spacing:.2em;text-shadow:var(--pink-glow);opacity:.75;transition:opacity .2s;right:clamp(10px,2.4vw,36px);bottom:clamp(14px,2.2vw,30px)}
+.card.lead:hover .pl{background:none;border:0;color:var(--red);opacity:1}
+@media(max-width:700px){
+  .card.lead .pl{width:auto;height:auto}
+  body>header{padding:7px var(--gutter) 0;gap:0}
+  nav a{padding:7px 0}
+  .brand{padding:0}
+  /* landing page: film frames sized to the screen instead of half the screen height */
+  .row{--h:clamp(170px,54vw,260px)}
+  /* landing page hero: frame sits close to the screen edge, clear of the title */
+  .hero:after{inset:7px}
+  /* projects: even two-column tiles */
+  .jx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+  .jx .card{width:auto!important;height:auto!important;aspect-ratio:1/1.1}
+}
