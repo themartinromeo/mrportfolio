@@ -34,7 +34,7 @@ body.home>header.past-title .brand{opacity:1;visibility:visible}
 .hero .bg{position:absolute;left:-3%;top:-3%;width:106%;height:106%;max-width:none;object-fit:cover;z-index:-2;background:#000;filter:brightness(.45);transform:scale(1.08);transition:transform 2.4s cubic-bezier(.2,.7,.2,1),filter 1.6s}
 .hero.on .bg{transform:scale(1);filter:brightness(.82)}
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#100e0df5,transparent 73%),linear-gradient(90deg,#100c0966,transparent 74%);z-index:-1}
-.hero:after{content:"";position:absolute;inset:58px 16px 16px;border:1px solid #fff0d229;z-index:-1;pointer-events:none}
+.hero:after{content:"";position:absolute;inset:35px 16px 16px;border:1px solid #fff0d229;z-index:-1;pointer-events:none}
 .hero h1{font-size:clamp(55px,10.5vw,172px);letter-spacing:-.075em;color:var(--red);margin:.07em 0 .12em -.036em;text-shadow:0 0 3px #ffb7e0aa,0 0 .09em #ff4aaf9c,0 0 .24em #ff008055;will-change:transform}
 .hero em{font:inherit}
 .hero .role{font:900 clamp(14px,1.7vw,22px)/1.2 var(--display);letter-spacing:.08em;text-transform:uppercase;max-width:none;margin-top:.2em}
