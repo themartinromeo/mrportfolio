@@ -30,11 +30,22 @@ const V=[
 ['Mobina Galore - Whiskey Water','701899917','','',''],
 ['William Prince - NPR Tiny Desk','638796408','','',''],
 ['Sadye - Social Media','941435606','','',''],
-['viisi - Social Media','930325239','','',''],
-['Mobina Galore - Sorry I’m a Mess','406924730','D','2019 · Bell TV · Director','2019 · Bell TV · Réalisateur']];
+['viisi - Social Media','930325239','','',''],];
 const M=[
 ['Champions','PE','TFO · 2025–2026 · Editor, season 1 · Cinematographer, season 2','TFO · 2025–2026 · Monteur, saison 1 · Directeur photo, saison 2'],
 ['C’est moi qui décide!','DPE','Unis TV · 2023–2024 · Cinematographer and editor, season 1 · Director, season 2','Unis TV · 2023–2024 · Directeur photo et monteur, saison 1 · Réalisateur, saison 2'],
+['Banni','E','Unis TV · 2024 · Editor · Colorist, 2 episodes','Unis TV · 2024 · Monteur · Étalonneur, 2 épisodes'],
+['Maanachhitow','PE','Radio-Canada · 2023 · Camera operator · Editor, 3 episodes','Radio-Canada · 2023 · Cadreur · Monteur, 3 épisodes'],
+['Le théâtre de l’histoire','PE','Radio-Canada · 2023 · Camera operator · Editor · Documentary','Radio-Canada · 2023 · Cadreur · Monteur · Documentaire'],
+['Vortex','P','Québec Or · 2023 · Director of photography, 8 episodes','Québec Or · 2023 · Directeur photo, 8 épisodes'],
+['Décidémons','P','WebOuest · 2023 · Director of photography, 6 episodes','WebOuest · 2023 · Directeur photo, 6 épisodes'],
+['Michif Country','P','APTN · 2022 · Director of photography · Drone operator','APTN · 2022 · Directeur photo · Opérateur de drone'],
+['Gabe Douglas - City Dreams (I don’t care)','PE','Vnclm Records · 2022 · Director of photography · Editor','Vnclm Records · 2022 · Directeur photo · Monteur'],
+['Terry Fox - The Power of One','P','CBC · 2021 · Director of photography, William Prince segment','CBC · 2021 · Directeur photo, segment William Prince'],
+['Rayannah - Live au CCFM','PE','2021 · Director of photography · Editor · Live performance','2021 · Directeur photo · Monteur · Performance en direct'],
+['Denise au pays des Francos','PE','Radio-Canada · 2019 · Camera operator · Editor · Documentary','Radio-Canada · 2019 · Cadreur · Monteur · Documentaire'],
+['Mobina Galore - Sorry I’m a Mess','D','Bell TV · 2019 · Director · Full-length documentary','Bell TV · 2019 · Réalisateur · Documentaire long métrage'],
+['Le Musée Macabre de Sainte-Larmes','PE','2025 · Director of photography · Editor · Short film','2025 · Directeur photo · Monteur · Court métrage'],
 ['Faouzia × John Legend - The Today Show','D','Atlantic Records · 2020 · Second unit director · Producer','Atlantic Records · 2020 · Réalisateur, deuxième équipe · Production']];
 
 // role toggles (header): pink = on, white = off and that work is muted. Any combination; resets on every page load
@@ -68,8 +79,14 @@ if($('#sel'))$('#sel').innerHTML=P.filter(p=>!FEAT.includes(p.id)).map(row).join
 const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
 const SOC={'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
-const onFront=['631166001'];   // Indi Star - Exposed already lives in the Indi Star row on the home page
+const LEAD='823066763';   // La Terre en Nous gets the large feature card on Projects
+const onFront=['631166001',LEAD];   // Indi Star - Exposed already lives in the Indi Star row on the home page
 if($('#all'))$('#all').innerHTML=V.filter(v=>!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="${SOC[v[1]]?th(SOC[v[1]].s,1):`https://vumbnail.com/${v[1]}.jpg`}" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
+const lv=V.find(v=>v[0]==='La Terre en Nous');
+if($('#all')&&lv){const m=lv[LG==='fr'?4:3];
+  $('#all').insertAdjacentHTML('beforebegin',`<a class="card lead" href="${vimeoUrl(lv[1])}" data-v="${lv[1]}" data-t="${lv[0]}" data-m="${m}" data-r="${lv[2]}"><div class="ph"><img src="https://vumbnail.com/${lv[1]}.jpg" alt="${lv[0]}" onerror="this.style.display='none'"></div><div class="cap"><span class="kick">${LG==='fr'?'À la une':'Featured'}</span><h3>${ttl(lv[0])}</h3><small>${m}</small></div><i class="pl" aria-hidden="true">▶</i></a>`);
+  $('#all').style.marginTop='4px';
+  fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(vimeoUrl(lv[1]))}&width=1920`).then(r=>r.json()).then(j=>{if(j.thumbnail_url){const i=$('.lead img');i.style.display='';i.src=j.thumbnail_url}}).catch(()=>{})}
 const jx=$('#all.jx');
 if(jx){const fit=()=>{const W=jx.clientWidth,H=innerWidth<700?190:300,g=4,cs=[...jx.children];let row=[],sum=0;
     const flush=(last)=>{if(!row.length)return;const avail=W-g*(row.length-1);let h=avail/sum;if(last&&h>H*1.25)h=H;row.forEach(c=>{const ar=+c.dataset.ar;c.style.width=(h*ar)+'px';c.style.height=h+'px'});row=[];sum=0};
