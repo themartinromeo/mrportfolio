@@ -20,7 +20,7 @@ const P=[
 {id:'indi',t:'Indi Star - Visualizers',s:'indi-star',c:2,n:11,r:'PE',alt:'A performer in blue light',en:'2022 · Cinematographer · Editor',fr:'2022 · Directeur photo · Monteur'}];
 const V=[
 ['viisi - Runner','467150416','DPE','2020 · Director · Cinematographer · Editor','2020 · Réalisateur · Directeur photo · Monteur'],
-['Cancelled','1150244901','E','2024 · Unis TV · Editor (2 episodes)','2024 · Unis TV · Monteur (2 épisodes)'],
+['Banni','1150244901','E','2024 · Unis TV · Editor (2 episodes)','2024 · Unis TV · Monteur (2 épisodes)'],
 ['La Terre en Nous','823066763','EP','2021 · APTN / Radio-Canada · Editor · Camera','2021 · APTN / Radio-Canada · Monteur · Caméra'],
 ['Clipwing - Last Call','1184642141','DE','2026 · Director · Editor','2026 · Réalisateur · Monteur'],
 ['Jordan Heppner - Fenway','843718272','DPE','2023 · Director · Editor','2023 · Réalisateur · Monteur'],
@@ -34,7 +34,6 @@ const V=[
 const M=[
 ['Champions','PE','TFO · 2025–2026 · Editor, season 1 · Cinematographer, season 2','TFO · 2025–2026 · Monteur, saison 1 · Directeur photo, saison 2'],
 ['C’est moi qui décide!','DPE','Unis TV · 2023–2024 · Cinematographer and editor, season 1 · Director, season 2','Unis TV · 2023–2024 · Directeur photo et monteur, saison 1 · Réalisateur, saison 2'],
-['Banni','E','Unis TV · 2024 · Editor · Colorist, 2 episodes','Unis TV · 2024 · Monteur · Étalonneur, 2 épisodes'],
 ['Maanachhitow','PE','Radio-Canada · 2023 · Camera operator · Editor, 3 episodes','Radio-Canada · 2023 · Cadreur · Monteur, 3 épisodes'],
 ['Le théâtre de l’histoire','PE','Radio-Canada · 2023 · Camera operator · Editor · Documentary','Radio-Canada · 2023 · Cadreur · Monteur · Documentaire'],
 ['Décidémons','P','WebOuest · 2023 · Director of photography, 6 episodes','WebOuest · 2023 · Directeur photo, 6 épisodes'],
