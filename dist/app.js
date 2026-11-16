@@ -20,7 +20,7 @@ const P=[
 {id:'indi',t:'Indi Star - Visualizers',s:'indi-star',c:2,n:11,r:'PE',alt:'A performer in blue light',en:'2022 · Cinematographer · Editor',fr:'2022 · Directeur photo · Monteur'}];
 const V=[
 ['viisi - Runner','467150416','DPE','2020 · Director · Cinematographer · Editor','2020 · Réalisateur · Directeur photo · Monteur'],
-['Cancelled','1150244901','E','2024 · Unis TV · Editor · Colorist','2024 · Unis TV · Monteur · Étalonneur'],
+['Cancelled','1150244901','E','2024 · Unis TV · Editor (2 episodes)','2024 · Unis TV · Monteur (2 épisodes)'],
 ['La Terre en Nous','823066763','EP','2021 · APTN / Radio-Canada · Editor · Camera','2021 · APTN / Radio-Canada · Monteur · Caméra'],
 ['Clipwing - Last Call','1184642141','DE','2026 · Director · Editor','2026 · Réalisateur · Monteur'],
 ['Jordan Heppner - Fenway','843718272','DPE','2023 · Director · Editor','2023 · Réalisateur · Monteur'],
@@ -223,7 +223,7 @@ if(rows.length){
       live.forEach(r=>{
         const b=r.getBoundingClientRect(),h=innerHeight,mx=maxOf(r);
         const p=Math.min(1,Math.max(0,((h-b.top)/(h+b.height)-.12)/.7));
-        const auto=-p*mx*.275;
+        const auto=-p*mx*.206;
         let raw=auto+r._m;if(raw<-mx){r._m=-mx-auto;raw=-mx}if(raw>0){r._m=-auto;raw=0}
         r._x=r._x===null?raw:r._x+(raw-r._x)*.07;
         r.querySelector('.strip2').style.transform=`translate3d(${r._x.toFixed(1)}px,0,0)`;
