@@ -311,3 +311,14 @@ body.home>header .brand{line-height:1}
   .jx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
   .jx .card{width:auto!important;height:auto!important;aspect-ratio:1/1.1}
 }
+
+/* ===== Round 5 (phones) ===== */
+@media(max-width:700px){
+  /* featured work: show each still whole (16:9) instead of a tall crop */
+  .features .ph{aspect-ratio:16/9;min-height:0}
+  /* nav hugs the top edge until the name appears; the hero frame starts just below it, as on desktop */
+  nav a{padding:7px 0 3px}
+  body.home>header .bl{max-height:0;overflow:hidden;transition:max-height .25s}
+  body.home>header.past-title .bl{max-height:32px}
+  .hero:after{inset:36px 7px 7px}
+}
