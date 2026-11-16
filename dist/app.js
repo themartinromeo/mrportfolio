@@ -27,7 +27,7 @@ const V=[
 ['Arden Jones - Smile','613666745','PE','2021 · Atlantic Records · Cinematographer · Editor','2021 · Atlantic Records · Directeur photo · Monteur'],
 ['Indi Star - Exposed','631166001','PE','2022 · Cinematographer · Editor','2022 · Directeur photo · Monteur'],
 ['Boy Golden - KD and Lunch Meat','606684440','PE','2021 · Six Shooter Records · Cinematographer · Editor','2021 · Six Shooter Records · Directeur photo · Monteur'],
-['Mobina Galore - Whiskey Water','701899917','D','2024 · Director · DOP: Tyler Funk','2024 · Réalisateur · Directeur photo : Tyler Funk'],
+['Mobina Galore - Whiskey Water','701899917','D','2022 · Director · DOP: Tyler Funk','2022 · Réalisateur · Directeur photo : Tyler Funk'],
 ['William Prince - NPR Tiny Desk','638796408','DPE','2022 · Director · Editor · Cinematography: Martin Roméo, Philippe Bellefeuille, Brad Crawford','2022 · Réalisateur · Monteur · Image : Martin Roméo, Philippe Bellefeuille, Brad Crawford'],
 ['Sadye - Social Media','941435606','','',''],
 ['viisi - Social Media','930325239','','',''],];
