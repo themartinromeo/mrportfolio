@@ -244,3 +244,21 @@ h3 .pr{display:block}
 .bio img{max-height:92vh;object-position:50% 50%}
 
 .fbar.show:not(.away){transition:opacity .22s,transform .22s,visibility .22s}
+
+/* Projects: La Terre en Nous feature card */
+.lead{aspect-ratio:21/9;max-height:70vh;margin-top:14px;cursor:pointer}
+.lead .ph{position:absolute;inset:0}
+.lead:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#10100fe6 0%,#10100f66 34%,transparent 62%);pointer-events:none}
+.lead .cap{position:absolute;left:0;bottom:0;right:0;z-index:2;padding:0 clamp(18px,3vw,44px) clamp(18px,2.6vw,36px)}
+.lead .kick{display:block;font:10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.lead h3{font-size:clamp(26px,4.4vw,68px);line-height:.95}
+.lead h3 .pr{font-size:inherit}
+.lead .cap small{display:block;margin-top:12px;font:11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#f5ecdcc7}
+.lead .pl{position:absolute;z-index:2;right:clamp(18px,3vw,44px);bottom:clamp(18px,2.6vw,36px);width:58px;height:58px;border:1px solid #f5ecdc80;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:16px;padding-left:3px;background:#10100f66;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .3s,border-color .3s,color .3s}
+.lead:hover .pl{background:var(--red);border-color:var(--red);color:#10100f}
+@media(max-width:700px){.lead{aspect-ratio:4/3}.lead .pl{width:44px;height:44px}}
+/* Bio: portrait sized to the text column */
+.bio{grid-template-columns:minmax(0,34em) minmax(240px,380px);justify-content:start;gap:clamp(30px,6vw,90px);align-items:stretch}
+.bio figure{position:relative;min-height:320px}
+.bio img,.bio figure img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;object-position:50% 55%}
+@media(max-width:700px){.bio{grid-template-columns:1fr}.bio figure{min-height:0;aspect-ratio:4/5}}
