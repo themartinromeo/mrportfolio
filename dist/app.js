@@ -9,6 +9,7 @@ const P=[
 {id:'wp',t:'William Prince - Further From The Country',s:'william-prince',c:1,n:15,r:'DE',alt:'William Prince, Further From The Country',en:'2026 · Six Shooter Records · Director · Editor',fr:'2026 · Six Shooter Records · Réalisateur · Monteur'},
 {id:'champions',t:'Champions',s:'champions',c:3,n:35,r:'PE',alt:'Basketball player in a backlit gym',en:'2025–2026 · TFO · Cinematographer · Editor',fr:'2025–2026 · TFO · Directeur photo · Monteur'},
 {id:'foodies',t:'Métis Foodies',s:'metis-foodies',c:1,n:5,r:'DPE',alt:'Two women laughing over tea',en:'2024–2025 · APTN · Director · Cinematographer · Editor',fr:'2024–2025 · APTN · Réalisateur · Directeur photo · Monteur'},
+{id:'macabre',t:'Le Musée Macabre de Sainte-Larmes',s:'macabre',c:1,n:5,r:'PE',alt:'Le Musée Macabre de Sainte-Larmes',en:'2025 · Director of photography · Editor · Short film',fr:'2025 · Directeur photo · Monteur · Court métrage'},
 {id:'hafu',t:'Hafu',s:'hafu',c:14,n:17,r:'P',alt:'A man sits among hanging flowers and reflections',en:'2025 · Unis TV · Cinematographer',fr:'2025 · Unis TV · Directeur photo'},
 {id:'survival',t:'Histoires de Survie',s:'hds',c:2,n:12,r:'PE',alt:'A woman reflected in a car mirror',en:'2025–2026 · Radio-Canada · Cinematographer · Editor',fr:'2025–2026 · Radio-Canada · Directeur photo · Monteur'},
 {id:'blizzard',t:'Expédition Blizzard',s:'blizzard',c:7,n:16,r:'P',alt:'A man in a wool hat and scarf in a snowy forest',en:'2023–2024 · TVA · Reality series · Cinematographer',fr:'2023–2024 · TVA · Série de téléréalité · Directeur photo'},
@@ -16,6 +17,7 @@ const P=[
 {id:'cmqd',t:'C’est moi qui décide!',s:'cmqd',c:5,n:16,r:'DPE',alt:'Children in goggles at a backyard pool',en:'2023–2024 · Unis TV · Director · Cinematographer · Editor',fr:'2023–2024 · Unis TV · Réalisateur · Directeur photo · Monteur'},
 {id:'secrets',t:'Faouzia - Secrets',s:'secrets',c:7,n:7,r:'DPE',alt:'A mirrored performance under violet light',en:'2020 · Atlantic Records · Director · Cinematographer · Editor',fr:'2020 · Atlantic Records · Réalisateur · Directeur photo · Monteur'},
 {id:'ghosts',t:'viisi × Chelsea Collins - Chasing Ghosts',s:'chasing-ghosts',c:2,n:4,r:'DE',alt:'A man running at night',en:'2023 · Atlantic Records · Director · Editor',fr:'2023 · Atlantic Records · Réalisateur · Monteur'},
+{id:'ww',vid:'701899917',t:'Mobina Galore - Whiskey Water',s:'whiskey-water',c:2,n:8,r:'D',alt:'Whiskey Water',en:'2022 · Director',fr:'2022 · Réalisateur'},
 {id:'crystalline',t:'Efflo - Crystalline',s:'crystalline',c:3,n:12,r:'DPE',alt:'A performer framed by dark film textures',en:'2020 · Director · Cinematographer · Editor',fr:'2020 · Réalisateur · Directeur photo · Monteur'},
 {id:'indi',t:'Indi Star - Visualizers',s:'indi-star',c:2,n:11,r:'PE',alt:'A performer in blue light',en:'2022 · Cinematographer · Editor',fr:'2022 · Directeur photo · Monteur'}];
 const V=[
@@ -43,7 +45,7 @@ const M=[
 ['Rayannah - Live au CCFM','PE','2021 · Director of photography · Editor · Live performance','2021 · Directeur photo · Monteur · Performance en direct'],
 ['Denise au pays des Francos','PE','Radio-Canada · 2019 · Camera operator · Editor · Documentary','Radio-Canada · 2019 · Cadreur · Monteur · Documentaire'],
 ['Mobina Galore - Sorry I’m a Mess','D','Bell TV · 2019 · Director · Full-length documentary','Bell TV · 2019 · Réalisateur · Documentaire long métrage'],
-['Le Musée Macabre de Sainte-Larmes','PE','2025 · Director of photography · Editor · Short film','2025 · Directeur photo · Monteur · Court métrage'],
+
 ['Faouzia × John Legend - The Today Show','D','Atlantic Records · 2020 · Second unit director · Producer','Atlantic Records · 2020 · Réalisateur, deuxième équipe · Production']];
 
 // role toggles (header): pink = on, white = off and that work is muted. Any combination; resets on every page load
@@ -76,7 +78,7 @@ if($('#sel'))$('#sel').innerHTML=P.filter(p=>!FEAT.includes(p.id)).map(row).join
 
 const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
-const SOC={'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
+const SOC={'701899917':{s:'whiskey-water',n:8},'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
 const LEAD='823066763';   // La Terre en Nous gets the large feature card on Projects
 const PICK=[];   // video entries promoted into Selected work
 const onFront=['631166001'];   // Indi Star - Exposed already lives in the Indi Star row on the home page
@@ -97,6 +99,7 @@ mountRoles();applyRole();
 // ghost window: looping video, 3–6 stills and production details
 const VID={astrid:{vimeo:'876911905'},malgre:{vimeo:'1150245299'},crystalline:{vimeo:'470453971'},foodies:{vimeo:'1199231416',h:'461a5e30e3'},hafu:{vimeo:'1150249442'},cmqd:{vimeo:'1043743626'},indi:{vimeo:'631166001'},wp:{vimeo:'1122501694'}}; // add {vimeo:'ID'} or {src:'media/clips/x.mp4'} for the others
 const INFO={
+  macabre:[['Year','Année','2025','2025'],['Format','Format','Short film','Court métrage'],['Role','Rôle','Director of photography · Editor','Directeur photo · Monteur']],
   astrid:[['Year','Année','2025','2025'],['Network','Diffuseur','CBC','CBC'],['Format','Format','Series','Série'],['Written and directed by','Écrit et réalisé par','Elena Sturk-Lussier','Elena Sturk-Lussier'],['Director of photography','Directrice photo','Laina Brown','Laina Brown'],['Camera','Caméra','Jesse de Rocquigny','Jesse de Rocquigny'],['Produced by','Production','Ray Films','Ray Films'],['Editor','Monteur','6 episodes','6 épisodes']],
   
 hafu:[['Year','Année','2025','2025'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Documentary','Documentaire'],['Role','Rôle','Cinematographer','Directeur photo']],
