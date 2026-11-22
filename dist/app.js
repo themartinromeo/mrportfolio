@@ -77,7 +77,6 @@ if($('#sel'))$('#sel').innerHTML=P.filter(p=>!FEAT.includes(p.id)).map(row).join
 const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
 const SOC={'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
-if($('#sel'))$('#sel').insertAdjacentHTML('beforeend',V.filter(v=>SOC[v[1]]).map(v=>row({id:'v'+v[1],vid:v[1],t:v[0],s:SOC[v[1]].s,n:SOC[v[1]].n,r:v[2]||'DPE',en:v[3],fr:v[4]})).join(''));
 const LEAD='823066763';   // La Terre en Nous gets the large feature card on Projects
 const PICK=[];   // video entries promoted into Selected work
 const onFront=['631166001'];   // Indi Star - Exposed already lives in the Indi Star row on the home page
@@ -88,7 +87,11 @@ if(jx){const fit=()=>{if(innerWidth<=700){[...jx.children].forEach(c=>{c.style.w
     cs.forEach((c,i)=>{const ar=+c.dataset.ar;row.push(c);sum+=ar;if((sum*H+g*(row.length-1))>=W)flush(false)});flush(true)};
   fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)}
 if($('#vim'))$('#vim').innerHTML=V.map(v=>`<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${v[LG==='fr'?4:3]}"><strong><span class="ply" aria-hidden="true">▶</span>${v[0]}</strong><span>${v[LG==='fr'?4:3]}</span></a></li>`).join('');
-if($('#more'))$('#more').innerHTML=V.filter(v=>!SOC[v[1]]&&!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}"><b>${v[0]}</b><span>${m}</span></a></li>`}).join('')+M.map(m=>`<li data-r="${m[1]}"><b>${m[0]}</b><span>${m[LG==='fr'?3:2]}</span></li>`).join('');
+if($('#more')){const yr=s=>Math.max(0,...(s.match(/\b(19|20)\d\d\b/g)||[]).map(Number));
+  const HIDE=['Champions','C’est moi qui décide!'];
+  const items=[...V.filter(v=>!SOC[v[1]]&&!onFront.includes(v[1])).map(v=>({t:v[0],r:v[2],m:v[LG==='fr'?4:3],v:v[1]})),...M.filter(m=>!HIDE.includes(m[0])).map(m=>({t:m[0],r:m[1],m:m[LG==='fr'?3:2]}))];
+  items.sort((x,y)=>yr(y.m)-yr(x.m));
+  $('#more').innerHTML=items.map(x=>x.v?`<li data-r="${x.r}"><a href="${vimeoUrl(x.v)}" data-v="${x.v}" data-t="${x.t}" data-m="${x.m}"><b>${x.t}</b><span>${x.m}</span></a></li>`:`<li data-r="${x.r}"><b>${x.t}</b><span>${x.m}</span></li>`).join('')}
 mountRoles();applyRole();
 
 // ghost window: looping video, 3–6 stills and production details
