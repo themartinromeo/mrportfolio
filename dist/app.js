@@ -71,28 +71,24 @@ const card=p=>`<button class="card" data-id="${p.id}" data-r="${p.r}"><div class
 const FEAT=['malgre','wp','champions','foodies','astrid'];   // featured work, shown in random order on each load
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
 if($('#feat'))$('#feat').innerHTML=shuf(FEAT).map(i=>card(byId[i])).join('');
-const row=p=>`<article class="row" data-r="${p.r}" data-id="${p.id}"><header><div><h3>${ttl(p.t)}</h3>${p[LG]?`<p>${p[LG]}</p>`:''}</div><div class="rctl"><button class="rb" data-d="-1" aria-label="${T.prev}">‹</button><button class="rb" data-d="1" aria-label="${T.next}">›</button></div></header><div class="track" tabindex="0" role="region" aria-label="${p.t}"><div class="strip2">${ord(p.s,p.n).map(k=>[AR[p.s][k-1],k-1]).map(([r,i])=>`<button class="fr" data-id="${p.id}" data-k="${i+1}" style="--ar:${r}"><img draggable="false" src="${th(p.s,i+1)}" alt="${T.still} ${p.t}, ${i+1}/${p.n}" loading="lazy" decoding="async"></button>`).join('')}</div></div><i class="bar"></i></article>`;
+const row=p=>`<article class="row" data-r="${p.r}" data-id="${p.id}"><header><div><h3>${ttl(p.t)}</h3>${p[LG]?`<p>${p[LG]}</p>`:''}</div><div class="rctl"><button class="rb" data-d="-1" aria-label="${T.prev}">‹</button><button class="rb" data-d="1" aria-label="${T.next}">›</button></div></header><div class="track" tabindex="0" role="region" aria-label="${p.t}"><div class="strip2">${ord(p.s,p.n).map(k=>[AR[p.s][k-1],k-1]).map(([r,i])=>`<button class="fr" data-id="${p.id}"${p.vid?` data-vid="${p.vid}"`:''} data-k="${i+1}" style="--ar:${r}"><img draggable="false" src="${th(p.s,i+1)}" alt="${T.still} ${p.t}, ${i+1}/${p.n}" loading="lazy" decoding="async"></button>`).join('')}</div></div><i class="bar"></i></article>`;
 if($('#sel'))$('#sel').innerHTML=P.filter(p=>!FEAT.includes(p.id)).map(row).join('');
 
 const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
 const SOC={'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
+if($('#sel'))$('#sel').insertAdjacentHTML('beforeend',V.filter(v=>SOC[v[1]]).map(v=>row({id:'v'+v[1],vid:v[1],t:v[0],s:SOC[v[1]].s,n:SOC[v[1]].n,r:v[2]||'DPE',en:v[3],fr:v[4]})).join(''));
 const LEAD='823066763';   // La Terre en Nous gets the large feature card on Projects
-const PICK=['843718272','1184642141','638796408'];   // video entries promoted into Selected work
-const onFront=['631166001',LEAD];   // Indi Star - Exposed already lives in the Indi Star row on the home page
+const PICK=[];   // video entries promoted into Selected work
+const onFront=['631166001'];   // Indi Star - Exposed already lives in the Indi Star row on the home page
 if($('#all'))$('#all').innerHTML=V.filter(v=>PICK.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="${SOC[v[1]]?th(SOC[v[1]].s,1):`https://vumbnail.com/${v[1]}.jpg`}" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
-const lv=V.find(v=>v[0]==='La Terre en Nous');
-if($('#all')&&lv){const m=lv[LG==='fr'?4:3];
-  $('#all').insertAdjacentHTML('beforebegin',`<a class="card lead" href="${vimeoUrl(lv[1])}" data-v="${lv[1]}" data-t="${lv[0]}" data-m="${m}" data-r="${lv[2]}"><div class="ph"><img src="https://vumbnail.com/${lv[1]}.jpg" alt="${lv[0]}" onerror="this.style.display='none'"></div><div class="cap"><span class="kick">${LG==='fr'?'À la une':'Featured'}</span><h3>${ttl(lv[0])}</h3><small>${m}</small></div><i class="pl" aria-hidden="true">▶</i></a>`);
-  $('#all').style.marginTop='4px';
-  fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(vimeoUrl(lv[1]))}&width=1920`).then(r=>r.json()).then(j=>{if(j.thumbnail_url){const i=$('.lead img');i.style.display='';i.src=j.thumbnail_url}}).catch(()=>{})}
 const jx=$('#all.jx');
 if(jx){const fit=()=>{if(innerWidth<=700){[...jx.children].forEach(c=>{c.style.width='';c.style.height=''});return}const W=jx.clientWidth,H=innerWidth<700?190:300,g=4,cs=[...jx.children];let row=[],sum=0;
     const flush=(last)=>{if(!row.length)return;const avail=W-g*(row.length-1);let h=avail/sum;if(last&&h>H*1.25)h=H;row.forEach(c=>{const ar=+c.dataset.ar;c.style.width=(h*ar)+'px';c.style.height=h+'px'});row=[];sum=0};
     cs.forEach((c,i)=>{const ar=+c.dataset.ar;row.push(c);sum+=ar;if((sum*H+g*(row.length-1))>=W)flush(false)});flush(true)};
   fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)}
 if($('#vim'))$('#vim').innerHTML=V.map(v=>`<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${v[LG==='fr'?4:3]}"><strong><span class="ply" aria-hidden="true">▶</span>${v[0]}</strong><span>${v[LG==='fr'?4:3]}</span></a></li>`).join('');
-if($('#more'))$('#more').innerHTML=V.filter(v=>!PICK.includes(v[1])&&!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}"><b><span class="ply" aria-hidden="true">▶</span>${ttl(v[0])}</b><span>${m}</span></a></li>`}).join('')+M.map(m=>`<li data-r="${m[1]}"><b>${m[0]}</b><span>${m[LG==='fr'?3:2]}</span></li>`).join('');
+if($('#more'))$('#more').innerHTML=V.filter(v=>!SOC[v[1]]&&!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}"><b>${v[0]}</b><span>${m}</span></a></li>`}).join('')+M.map(m=>`<li data-r="${m[1]}"><b>${m[0]}</b><span>${m[LG==='fr'?3:2]}</span></li>`).join('');
 mountRoles();applyRole();
 
 // ghost window: looping video, 3–6 stills and production details
@@ -174,6 +170,7 @@ if(gw){
   $('#lx').textContent=T.close;
   document.addEventListener('click',e=>{
     const c=e.target.closest('.card[data-id],.fr'),a=e.target.closest('a[data-v]');
+    if(c&&c.dataset.vid){const v=V.find(x=>x[1]===c.dataset.vid);openVimeo(v[1],v[0],v[LG==='fr'?4:3]);return}
     if(c)openProject(byId[c.dataset.id]);
     if(a){e.preventDefault();openVimeo(a.dataset.v,a.dataset.t,a.dataset.m)}});
   $('#lx').onclick=()=>gw.close();
