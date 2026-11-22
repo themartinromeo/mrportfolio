@@ -322,3 +322,10 @@ body.home>header .brand{line-height:1}
   body.home>header.past-title .bl{max-height:32px}
   .hero:after{inset:36px 7px 7px}
 }
+.cr a{display:flex;flex:1 1 100%;flex-wrap:wrap;justify-content:space-between;gap:10px}
+.cr .ply{color:var(--red);font-size:.6em;margin-right:.6em;vertical-align:.15em}
+.cr a:hover b{text-shadow:var(--pink-glow)}
+.cr b span{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+.cr b .ply{color:var(--red);font-size:.6em}
+.cr a>span{font:12px/1.5 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.cr b .pr{font-size:inherit}
