@@ -78,8 +78,9 @@ const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
 const SOC={'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
 const LEAD='823066763';   // La Terre en Nous gets the large feature card on Projects
+const PICK=['843718272','1184642141','638796408'];   // video entries promoted into Selected work
 const onFront=['631166001',LEAD];   // Indi Star - Exposed already lives in the Indi Star row on the home page
-if($('#all'))$('#all').innerHTML=V.filter(v=>!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="${SOC[v[1]]?th(SOC[v[1]].s,1):`https://vumbnail.com/${v[1]}.jpg`}" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
+if($('#all'))$('#all').innerHTML=V.filter(v=>PICK.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="${SOC[v[1]]?th(SOC[v[1]].s,1):`https://vumbnail.com/${v[1]}.jpg`}" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
 const lv=V.find(v=>v[0]==='La Terre en Nous');
 if($('#all')&&lv){const m=lv[LG==='fr'?4:3];
   $('#all').insertAdjacentHTML('beforebegin',`<a class="card lead" href="${vimeoUrl(lv[1])}" data-v="${lv[1]}" data-t="${lv[0]}" data-m="${m}" data-r="${lv[2]}"><div class="ph"><img src="https://vumbnail.com/${lv[1]}.jpg" alt="${lv[0]}" onerror="this.style.display='none'"></div><div class="cap"><span class="kick">${LG==='fr'?'À la une':'Featured'}</span><h3>${ttl(lv[0])}</h3><small>${m}</small></div><i class="pl" aria-hidden="true">▶</i></a>`);
@@ -91,7 +92,7 @@ if(jx){const fit=()=>{if(innerWidth<=700){[...jx.children].forEach(c=>{c.style.w
     cs.forEach((c,i)=>{const ar=+c.dataset.ar;row.push(c);sum+=ar;if((sum*H+g*(row.length-1))>=W)flush(false)});flush(true)};
   fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)}
 if($('#vim'))$('#vim').innerHTML=V.map(v=>`<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${v[LG==='fr'?4:3]}"><strong><span class="ply" aria-hidden="true">▶</span>${v[0]}</strong><span>${v[LG==='fr'?4:3]}</span></a></li>`).join('');
-if($('#more'))$('#more').innerHTML=M.map(m=>`<li data-r="${m[1]}"><b>${m[0]}</b><span>${m[LG==='fr'?3:2]}</span></li>`).join('');
+if($('#more'))$('#more').innerHTML=V.filter(v=>!PICK.includes(v[1])&&!onFront.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<li data-r="${v[2]}"><a href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}"><b><span class="ply" aria-hidden="true">▶</span>${ttl(v[0])}</b><span>${m}</span></a></li>`}).join('')+M.map(m=>`<li data-r="${m[1]}"><b>${m[0]}</b><span>${m[LG==='fr'?3:2]}</span></li>`).join('');
 mountRoles();applyRole();
 
 // ghost window: looping video, 3–6 stills and production details
