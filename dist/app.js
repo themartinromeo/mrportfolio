@@ -1,41 +1,41 @@
 const LG=document.documentElement.lang==='fr'?'fr':'en',$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const pad=n=>String(n).padStart(2,'0');
-const T={en:{all:'All',D:'Director',E:'Editor',P:'Cinematographer',close:'Close',vim:'Watch on Vimeo',prev:'Previous stills',next:'Next stills',watch:'Watch the full video',snd:['Sound on','Sound off'],still:'Still from',on:'On Vimeo',grp:'Show work by role',back:['Back to video','Back to slideshow'],play:['Pause','Play']},
+const T={en:{all:'All',D:'Director',E:'Editor',P:'Director of photography',close:'Close',vim:'Watch on Vimeo',prev:'Previous stills',next:'Next stills',watch:'Watch the full video',snd:['Sound on','Sound off'],still:'Still from',on:'On Vimeo',grp:'Show work by role',back:['Back to video','Back to slideshow'],play:['Pause','Play']},
 fr:{all:'Tout',D:'Réalisateur',E:'Monteur',P:'Directeur photo',close:'Fermer',vim:'Voir sur Vimeo',prev:'Images précédentes',next:'Images suivantes',watch:'Voir la vidéo complète',snd:['Activer le son','Couper le son'],still:'Image de',on:'Sur Vimeo',grp:'Filtrer par rôle',back:['Retour à la vidéo','Retour au diaporama'],play:['Pause','Lecture']}}[LG];
 // r: D director, E editor, P cinematographer. s/c/n: stills folder, cover, count
 const P=[
   {id:'astrid',t:'Les Faillites d’Astrid',src:'stills/astrid/05.jpg',s:'astrid',c:1,n:5,r:'E',alt:'Les Faillites d’Astrid, Radio-Canada',en:'2025 · CBC · Editor, 6 episodes',fr:'2025 · Radio-Canada · Monteur, 6 épisodes'},
 {id:'malgre',t:'Malgré Moi',src:'media/malgre-moi.jpg',n:0,r:'E',alt:'Malgré Moi, Radio-Canada',en:'2025–2026 · Radio-Canada · Editor, seasons 1–2',fr:'2025–2026 · Radio-Canada · Monteur, saisons 1–2'},
 {id:'wp',t:'William Prince - Further From The Country',s:'william-prince',c:1,n:15,r:'DE',alt:'William Prince, Further From The Country',en:'2026 · Six Shooter Records · Director · Editor',fr:'2026 · Six Shooter Records · Réalisateur · Monteur'},
-{id:'champions',t:'Champions',s:'champions',c:3,n:35,r:'PE',alt:'Basketball player in a backlit gym',en:'2025–2026 · TFO · Cinematographer · Editor',fr:'2025–2026 · TFO · Directeur photo · Monteur'},
-{id:'foodies',t:'Métis Foodies',s:'metis-foodies',c:1,n:5,r:'DPE',alt:'Two women laughing over tea',en:'2024–2025 · APTN · Director · Cinematographer · Editor',fr:'2024–2025 · APTN · Réalisateur · Directeur photo · Monteur'},
+{id:'champions',t:'Champions',s:'champions',c:3,n:35,r:'PE',alt:'Basketball player in a backlit gym',en:'2025–2026 · TFO · Director of photography · Editor',fr:'2025–2026 · TFO · Directeur photo · Monteur'},
+{id:'foodies',t:'Métis Foodies',s:'metis-foodies',c:1,n:5,r:'DPE',alt:'Two women laughing over tea',en:'2024–2025 · APTN · Director · Director of photography · Editor',fr:'2024–2025 · APTN · Réalisateur · Directeur photo · Monteur'},
+{id:'survival',t:'Histoires de Survie',s:'hds',c:2,n:12,r:'PE',alt:'A woman reflected in a car mirror',en:'2025–2026 · Radio-Canada · Director of photography · Editor',fr:'2025–2026 · Radio-Canada · Directeur photo · Monteur'},
+{id:'hafu',t:'Hafu',s:'hafu',c:14,n:17,r:'P',alt:'A man sits among hanging flowers and reflections',en:'2025 · Unis TV · Director of photography',fr:'2025 · Unis TV · Directeur photo'},
+{id:'cmqd',t:'C’est moi qui décide!',s:'cmqd',c:5,n:16,r:'DPE',alt:'Children in goggles at a backyard pool',en:'2023–2024 · Unis TV · Director · Director of photography · Editor',fr:'2023–2024 · Unis TV · Réalisateur · Directeur photo · Monteur'},
+{id:'blizzard',t:'Expédition Blizzard',s:'blizzard',c:7,n:16,r:'P',alt:'A man in a wool hat and scarf in a snowy forest',en:'2023–2024 · TVA · Reality series · Director of photography',fr:'2023–2024 · TVA · Série de téléréalité · Directeur photo'},
+{id:'vide',t:'L’Appel du Vide',s:'appel-du-vide',c:11,n:12,r:'PE',alt:'Two figures suspended underwater',en:'2022 · Director of photography · Editor',fr:'2022 · Directeur photo · Monteur'},
 {id:'macabre',t:'Le Musée Macabre de Sainte-Larmes',s:'macabre',c:1,n:5,r:'PE',alt:'Le Musée Macabre de Sainte-Larmes',en:'2025 · Director of photography · Editor · Short film',fr:'2025 · Directeur photo · Monteur · Court métrage'},
-{id:'hafu',t:'Hafu',s:'hafu',c:14,n:17,r:'P',alt:'A man sits among hanging flowers and reflections',en:'2025 · Unis TV · Cinematographer',fr:'2025 · Unis TV · Directeur photo'},
-{id:'survival',t:'Histoires de Survie',s:'hds',c:2,n:12,r:'PE',alt:'A woman reflected in a car mirror',en:'2025–2026 · Radio-Canada · Cinematographer · Editor',fr:'2025–2026 · Radio-Canada · Directeur photo · Monteur'},
-{id:'blizzard',t:'Expédition Blizzard',s:'blizzard',c:7,n:16,r:'P',alt:'A man in a wool hat and scarf in a snowy forest',en:'2023–2024 · TVA · Reality series · Cinematographer',fr:'2023–2024 · TVA · Série de téléréalité · Directeur photo'},
-{id:'vide',t:'L’Appel du Vide',s:'appel-du-vide',c:11,n:12,r:'PE',alt:'Two figures suspended underwater',en:'2022 · Cinematographer · Editor',fr:'2022 · Directeur photo · Monteur'},
-{id:'cmqd',t:'C’est moi qui décide!',s:'cmqd',c:5,n:16,r:'DPE',alt:'Children in goggles at a backyard pool',en:'2023–2024 · Unis TV · Director · Cinematographer · Editor',fr:'2023–2024 · Unis TV · Réalisateur · Directeur photo · Monteur'},
-{id:'secrets',t:'Faouzia - Secrets',s:'secrets',c:7,n:7,r:'DPE',alt:'A mirrored performance under violet light',en:'2020 · Atlantic Records · Director · Cinematographer · Editor',fr:'2020 · Atlantic Records · Réalisateur · Directeur photo · Monteur'},
+{id:'secrets',t:'Faouzia - Secrets',s:'secrets',c:7,n:7,r:'DPE',alt:'A mirrored performance under violet light',en:'2020 · Atlantic Records · Director · Director of photography · Editor',fr:'2020 · Atlantic Records · Réalisateur · Directeur photo · Monteur'},
 {id:'ghosts',t:'viisi × Chelsea Collins - Chasing Ghosts',s:'chasing-ghosts',c:2,n:4,r:'DE',alt:'A man running at night',en:'2023 · Atlantic Records · Director · Editor',fr:'2023 · Atlantic Records · Réalisateur · Monteur'},
 {id:'ww',vid:'701899917',t:'Mobina Galore - Whiskey Water',s:'whiskey-water',c:2,n:8,r:'D',alt:'Whiskey Water',en:'2022 · Director',fr:'2022 · Réalisateur'},
-{id:'crystalline',t:'Efflo - Crystalline',s:'crystalline',c:3,n:12,r:'DPE',alt:'A performer framed by dark film textures',en:'2020 · Director · Cinematographer · Editor',fr:'2020 · Réalisateur · Directeur photo · Monteur'},
-{id:'indi',t:'Indi Star - Visualizers',s:'indi-star',c:2,n:11,r:'PE',alt:'A performer in blue light',en:'2022 · Cinematographer · Editor',fr:'2022 · Directeur photo · Monteur'}];
+{id:'crystalline',t:'Efflo - Crystalline',s:'crystalline',c:3,n:12,r:'DPE',alt:'A performer framed by dark film textures',en:'2020 · Director · Director of photography · Editor',fr:'2020 · Réalisateur · Directeur photo · Monteur'},
+{id:'smile',vid:'613666745',t:'Arden Jones - Smile',s:'smile',c:2,n:11,r:'PE',alt:'Arden Jones, Smile',en:'2021 · Atlantic Records · Director of photography · Editor',fr:'2021 · Atlantic Records · Directeur photo · Monteur'}];
 const V=[
-['viisi - Runner','467150416','DPE','2020 · Director · Cinematographer · Editor','2020 · Réalisateur · Directeur photo · Monteur'],
+['viisi - Runner','467150416','DPE','2020 · Director · Director of photography · Editor','2020 · Réalisateur · Directeur photo · Monteur'],
 ['Banni','1150244901','E','2024 · Unis TV · Editor (2 episodes)','2024 · Unis TV · Monteur (2 épisodes)'],
 ['La Terre en Nous','823066763','EP','2021 · APTN / Radio-Canada · Editor · Camera','2021 · APTN / Radio-Canada · Monteur · Caméra'],
 ['Clipwing - Last Call','1184642141','DE','2026 · Director · Editor','2026 · Réalisateur · Monteur'],
 ['Jordan Heppner - Fenway','843718272','DPE','2023 · Director · Editor','2023 · Réalisateur · Monteur'],
-['Arden Jones - Smile','613666745','PE','2021 · Atlantic Records · Cinematographer · Editor','2021 · Atlantic Records · Directeur photo · Monteur'],
-['Indi Star - Exposed','631166001','PE','2022 · Cinematographer · Editor','2022 · Directeur photo · Monteur'],
-['Boy Golden - KD and Lunch Meat','606684440','PE','2021 · Six Shooter Records · Cinematographer · Editor','2021 · Six Shooter Records · Directeur photo · Monteur'],
+['Arden Jones - Smile','613666745','PE','2021 · Atlantic Records · Director of photography · Editor','2021 · Atlantic Records · Directeur photo · Monteur'],
+['Indi Star - Exposed','631166001','PE','2022 · Director of photography · Editor','2022 · Directeur photo · Monteur'],
+['Boy Golden - KD and Lunch Meat','606684440','PE','2021 · Six Shooter Records · Director of photography · Editor','2021 · Six Shooter Records · Directeur photo · Monteur'],
 ['Mobina Galore - Whiskey Water','701899917','D','2022 · Director','2022 · Réalisateur'],
 ['William Prince - NPR Tiny Desk','638796408','DPE','2022 · Director · Editor','2022 · Réalisateur · Monteur'],
 ['Sadye - Social Media','941435606','','',''],
 ['viisi - Social Media','930325239','','',''],];
 const M=[
-['Champions','PE','TFO · 2025–2026 · Editor, season 1 · Cinematographer, season 2','TFO · 2025–2026 · Monteur, saison 1 · Directeur photo, saison 2'],
-['C’est moi qui décide!','DPE','Unis TV · 2023–2024 · Cinematographer and editor, season 1 · Director, season 2','Unis TV · 2023–2024 · Directeur photo et monteur, saison 1 · Réalisateur, saison 2'],
+['Champions','PE','TFO · 2025–2026 · Editor, season 1 · Director of photography, season 2','TFO · 2025–2026 · Monteur, saison 1 · Directeur photo, saison 2'],
+['C’est moi qui décide!','DPE','Unis TV · 2023–2024 · Director of photography and editor, season 1 · Director, season 2','Unis TV · 2023–2024 · Directeur photo et monteur, saison 1 · Réalisateur, saison 2'],
 ['Maanachhitow','PE','Radio-Canada · 2023 · Camera operator · Editor, 3 episodes','Radio-Canada · 2023 · Cadreur · Monteur, 3 épisodes'],
 ['Le théâtre de l’histoire','PE','Radio-Canada · 2023 · Camera operator · Editor · Documentary','Radio-Canada · 2023 · Cadreur · Monteur · Documentaire'],
 ['Décidémons','P','WebOuest · 2023 · Director of photography, 6 episodes','WebOuest · 2023 · Directeur photo, 6 épisodes'],
@@ -78,10 +78,10 @@ if($('#sel'))$('#sel').innerHTML=P.filter(p=>!FEAT.includes(p.id)).map(row).join
 
 const vimeoUrl=id=>`https://vimeo.com/${id}`;
 const VA={'941435606':9/16,'930325239':9/16,'843718272':2.39};   // original shapes: vertical socials, anamorphic Fenway
-const SOC={'701899917':{s:'whiskey-water',n:8},'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
+const SOC={'613666745':{s:'smile',n:11},'701899917':{s:'whiskey-water',n:8},'941435606':{s:'sadye-social',n:7},'930325239':{s:'viisi-social',n:5}};   // stills for the social-media pieces
 const LEAD='823066763';   // La Terre en Nous gets the large feature card on Projects
 const PICK=[];   // video entries promoted into Selected work
-const onFront=['631166001'];   // Indi Star - Exposed already lives in the Indi Star row on the home page
+const onFront=[];   // Indi Star - Exposed already lives in the Indi Star row on the home page
 if($('#all'))$('#all').innerHTML=V.filter(v=>PICK.includes(v[1])).map(v=>{const m=v[LG==='fr'?4:3];return `<a class="card" data-ar="${VA[v[1]]||16/9}" href="${vimeoUrl(v[1])}" data-v="${v[1]}" data-t="${v[0]}" data-m="${m}" data-r="${v[2]}"><div class="ph"><img src="${SOC[v[1]]?th(SOC[v[1]].s,1):`https://vumbnail.com/${v[1]}.jpg`}" alt="${v[0]}" loading="lazy" onerror="this.style.display='none'"></div><div class="cap"><h3>${ttl(v[0])}</h3>${m?`<small>${m}</small>`:''}</div></a>`}).join('');
 const jx=$('#all.jx');
 if(jx){const fit=()=>{if(innerWidth<=700){[...jx.children].forEach(c=>{c.style.width='';c.style.height=''});return}const W=jx.clientWidth,H=innerWidth<700?190:300,g=4,cs=[...jx.children];let row=[],sum=0;
@@ -97,24 +97,23 @@ if($('#more')){const yr=s=>Math.max(0,...(s.match(/\b(19|20)\d\d\b/g)||[]).map(N
 mountRoles();applyRole();
 
 // ghost window: looping video, 3–6 stills and production details
-const VID={astrid:{vimeo:'876911905'},malgre:{vimeo:'1150245299'},crystalline:{vimeo:'470453971'},foodies:{vimeo:'1199231416',h:'461a5e30e3'},hafu:{vimeo:'1150249442'},cmqd:{vimeo:'1043743626'},indi:{vimeo:'631166001'},wp:{vimeo:'1122501694'}}; // add {vimeo:'ID'} or {src:'media/clips/x.mp4'} for the others
+const VID={astrid:{vimeo:'876911905'},malgre:{vimeo:'1150245299'},crystalline:{vimeo:'470453971'},foodies:{vimeo:'1199231416',h:'461a5e30e3'},hafu:{vimeo:'1150249442'},cmqd:{vimeo:'1043743626'},wp:{vimeo:'1122501694'}}; // add {vimeo:'ID'} or {src:'media/clips/x.mp4'} for the others
 const INFO={
-  macabre:[['Year','Année','2025','2025'],['Format','Format','Short film','Court métrage'],['Role','Rôle','Director of photography · Editor','Directeur photo · Monteur']],
+  macabre:[['Year','Année','2025','2025'],['Format','Format','Short film','Court métrage'],['Director','Réalisateur','Elena Sturk-Lussier','Elena Sturk-Lussier'],['Role','Rôle','Director of photography · Editor','Directeur photo · Monteur']],
   astrid:[['Year','Année','2025','2025'],['Network','Diffuseur','CBC','CBC'],['Format','Format','Series','Série'],['Written and directed by','Écrit et réalisé par','Elena Sturk-Lussier','Elena Sturk-Lussier'],['Director of photography','Directrice photo','Laina Brown','Laina Brown'],['Camera','Caméra','Jesse de Rocquigny','Jesse de Rocquigny'],['Produced by','Production','Ray Films','Ray Films'],['Editor','Monteur','6 episodes','6 épisodes']],
   
-hafu:[['Year','Année','2025','2025'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Documentary','Documentaire'],['Role','Rôle','Cinematographer','Directeur photo']],
-champions:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','TFO','TFO'],['Format','Format','Series','Série'],['Cinematographer','Directeur photo','Season 2 · 13 episodes','Saison 2 · 13 épisodes'],['Editor','Monteur','Season 1 · 1 episode','Saison 1 · 1 épisode']],
-survival:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','Radio-Canada','Radio-Canada'],['Format','Format','Series','Série'],['Cinematographer','Directeur photo','6 episodes','6 épisodes'],['Editor','Monteur','1 episode','1 épisode']],
-foodies:[['Years','Années','2024–2025','2024–2025'],['Network','Diffuseur','APTN','APTN'],['Format','Format','Series','Série'],['Director','Réalisateur','Janelle Wookey · Martin LaFrenière · 13 episodes','Janelle Wookey · Martin LaFrenière · 13 épisodes'],['Cinematographer','Directeur photo','Martin LaFrenière · Jesse De Rocquigny','Martin LaFrenière · Jesse De Rocquigny'],['Editor','Monteur','Martin LaFrenière · Fabian Velasco','Martin LaFrenière · Fabian Velasco']],
-vide:[['Year','Année','2022','2022'],['Format','Format','Short film','Court métrage'],['Roles','Rôles','Cinematographer · Editor','Directeur photo · Monteur']],
-cmqd:[['Years','Années','2023–2024','2023–2024'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Series','Série'],['Season 1','Saison 1','Cinematographer · Editor · 14 episodes','Directeur photo · Monteur · 14 épisodes'],['Season 2','Saison 2','Director · 13 episodes','Réalisateur · 13 épisodes']],
-secrets:[['Year','Année','2020','2020'],['Label','Étiquette','Atlantic Records','Atlantic Records'],['Format','Format','Music video','Vidéoclip'],['Artist','Artiste','Faouzia','Faouzia'],['Roles','Rôles','Director · Cinematographer · Editor','Réalisateur · Directeur photo · Monteur']],
+hafu:[['Year','Année','2025','2025'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Documentary','Documentaire'],['Role','Rôle','Director of photography','Directeur photo']],
+champions:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','TFO','TFO'],['Format','Format','Series','Série'],['Director of photography','Directeur photo','Season 2 · 13 episodes','Saison 2 · 13 épisodes'],['Editor','Monteur','Season 1 · 1 episode','Saison 1 · 1 épisode']],
+survival:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','Radio-Canada','Radio-Canada'],['Format','Format','Series','Série'],['Director of photography','Directeur photo','6 episodes','6 épisodes'],['Editor','Monteur','1 episode','1 épisode']],
+foodies:[['Years','Années','2024–2025','2024–2025'],['Network','Diffuseur','APTN','APTN'],['Format','Format','Series','Série'],['Director','Réalisateur','Janelle Wookey · 9 episodes\nMartin LaFrenière · 2 episodes','Janelle Wookey · 9 épisodes\nMartin LaFrenière · 2 épisodes','w'],['Director of photography','Directeur photo','Martin LaFrenière · Jesse De Rocquigny','Martin LaFrenière · Jesse De Rocquigny'],['Editor','Monteur','Martin LaFrenière · Fabian Velasco','Martin LaFrenière · Fabian Velasco']],
+vide:[['Year','Année','2022','2022'],['Format','Format','Short film','Court métrage'],['Roles','Rôles','Director of photography · Editor','Directeur photo · Monteur']],
+cmqd:[['Years','Années','2023–2024','2023–2024'],['Network','Diffuseur','Unis TV','Unis TV'],['Format','Format','Series','Série'],['Season 1','Saison 1','Director of photography · Editor · 14 episodes','Directeur photo · Monteur · 14 épisodes'],['Season 2','Saison 2','Director · 13 episodes','Réalisateur · 13 épisodes']],
+secrets:[['Year','Année','2020','2020'],['Label','Étiquette','Atlantic Records','Atlantic Records'],['Format','Format','Music video','Vidéoclip'],['Artist','Artiste','Faouzia','Faouzia'],['Roles','Rôles','Director · Director of photography · Editor','Réalisateur · Directeur photo · Monteur']],
 ghosts:[['Year','Année','2023','2023'],['Label','Étiquette','Atlantic Records','Atlantic Records'],['Format','Format','Music video','Vidéoclip'],['Artist','Artiste','viisi × Chelsea Collins','viisi × Chelsea Collins'],['Roles','Rôles','Director · Editor','Réalisateur · Monteur']],
-crystalline:[['Year','Année','2020','2020'],['Format','Format','Music video','Vidéoclip'],['Artist','Artiste','Efflo','Efflo'],['Roles','Rôles','Director · Cinematographer · Editor','Réalisateur · Directeur photo · Monteur']],
-wp:[['Year','Année','2026','2026'],['Label','Étiquette','Six Shooter Records','Six Shooter Records'],['Format','Format','Album trailer · Music videos','Bande-annonce d’album · Vidéoclips'],['Artist','Artiste','William Prince','William Prince'],['Roles','Rôles','Director · Producer · Editor','Réalisateur · Production · Monteur']],
-indi:[['Year','Année','2022','2022'],['Format','Format','Visualizers','Visualiseurs'],['Artist','Artiste','Indi Star','Indi Star'],['Roles','Rôles','Cinematographer · Editor','Directeur photo · Monteur']],
-malgre:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','Radio-Canada','Radio-Canada'],['Format','Format','Series','Série'],['Editor','Monteur','Seasons 1–2','Saisons 1–2']],
-blizzard:[['Years','Années','2023–2024','2023–2024'],['Network','Diffuseur','TVA','TVA'],['Format','Format','Reality series · 8 episodes','Série de téléréalité · 8 épisodes'],['Role','Rôle','Cinematographer','Directeur photo']]};
+crystalline:[['Year','Année','2020','2020'],['Format','Format','Music video','Vidéoclip'],['Artist','Artiste','Efflo','Efflo'],['Roles','Rôles','Director · Director of photography · Editor','Réalisateur · Directeur photo · Monteur']],
+wp:[['Year','Année','2026','2026'],['Label','Étiquette','Six Shooter Records','Six Shooter Records'],['Format','Format','Album trailer\nMusic videos','Bande-annonce d’album\nVidéoclips'],['Artist','Artiste','William Prince','William Prince'],['Roles','Rôles','Director · Producer · Editor','Réalisateur · Production · Monteur','w']],
+malgre:[['Years','Années','2025–2026','2025–2026'],['Network','Diffuseur','Radio-Canada','Radio-Canada'],['Format','Format','Series','Série'],['Director','Réalisateur','Maxime Beauchamp','Maxime Beauchamp'],['Editor','Monteur','Seasons 1–2','Saisons 1–2']],
+blizzard:[['Years','Années','2023–2024','2023–2024'],['Network','Diffuseur','TVA','TVA'],['Format','Format','Reality series · 8 episodes','Série de téléréalité · 8 épisodes'],['Role','Rôle','Director of photography','Directeur photo']]};
 const gw=$('#lb');let slide=null;
 const pick=(n,s)=>ord(s,n);
 let stageHTML='',slideOn=false;
@@ -155,7 +154,7 @@ function openProject(p){
   else if(v&&v.src)video=`<video src="${v.src}" ${ids.length?`poster="${th(p.s,ids[0])}" `:''}autoplay muted loop playsinline></video><button class="sound" id="snd" type="button">${T.snd[0]}</button>`;
   else video=ids.slice(0,6).map(i=>`<img class="sl" src="${th(p.s,i)}" alt="">`).join('');
   const stl=ids.length?ids.slice(0,6).map(i=>`<img data-k="${i}" data-s="${p.s}" tabindex="0" src="${th(p.s,i)}" alt="${T.still} ${p.t}, ${i}/${p.n}" loading="lazy">`).join(''):'';
-  const info=(INFO[p.id]||[]).map(r=>`<div><dt>${LG==='fr'?r[1]:r[0]}</dt><dd>${LG==='fr'?r[3]:r[2]}</dd></div>`).join('');
+  const info=(INFO[p.id]||[]).map(r=>`<div${r[4]?` class="${r[4]}"`:''}><dt>${LG==='fr'?r[1]:r[0]}</dt><dd>${(LG==='fr'?r[3]:r[2]).split('\n').map(x=>`<span class="ln">${x}</span>`).join('')}</dd></div>`).join('');
   ghost(p.t,p[LG],video,stl,info,v&&v.vimeo?vimeoUrl(v.vimeo)+(v.h?'/'+v.h:''):'');
 }
 // crew other than Martin: kept off the thumbnails, shown in the popup like the year and network rows
@@ -163,6 +162,7 @@ const CREW={
   '1184642141':[['DOP','Directeur photo','Jesse de Rocquigny']],
   '843718272':[['DOP / Camera','Directeur photo / Caméra','Brad Crawford · Martin Roméo']],
   '701899917':[['DOP','Directeur photo','Tyler Funk']],
+  '613666745':[['Director','Réalisateur','Marielle Boland']],
   '638796408':[['Cinematography','Image','Martin Roméo · Philippe Bellefeuille · Brad Crawford']]};
 function openVimeo(id,t,m){
   const parts=m.split(' · '),yr=/^\d{4}/.test(parts[0]);

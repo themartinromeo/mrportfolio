@@ -331,3 +331,5 @@ body.home>header .brand{line-height:1}
 .cr b .pr{font-size:inherit}
 .cr{margin-top:0}
 .cr a{color:inherit;text-decoration:none}
+.info .ln{display:block}
+@media(min-width:701px){.info .w{grid-column:span 2}.info .w .ln{white-space:nowrap}}
