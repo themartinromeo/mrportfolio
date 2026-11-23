@@ -226,7 +226,7 @@ if(rows.length){
       live.forEach(r=>{
         const b=r.getBoundingClientRect(),h=innerHeight,mx=maxOf(r);
         const p=Math.min(1,Math.max(0,((h-b.top)/(h+b.height)-.12)/.7));
-        const auto=-p*mx*.206;
+        const auto=-p*mx*.103;
         let raw=auto+r._m;if(raw<-mx){r._m=-mx-auto;raw=-mx}if(raw>0){r._m=-auto;raw=0}
         r._x=r._x===null?raw:r._x+(raw-r._x)*.07;
         r.querySelector('.strip2').style.transform=`translate3d(${r._x.toFixed(1)}px,0,0)`;
