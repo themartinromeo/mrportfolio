@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://themartinromeo.github.io/mrportfolio/sitemap.xml
